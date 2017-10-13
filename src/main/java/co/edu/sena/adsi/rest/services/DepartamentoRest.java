@@ -1,0 +1,59 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package co.edu.sena.adsi.rest.services;
+
+import co.edu.sena.adsi.jpa.entities.Departamento;
+import co.edu.sena.adsi.jpa.sessions.DepartamentoFacade;
+import java.util.List;
+import javax.ejb.EJB;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
+
+/**
+ *
+ * @author David Jamauca
+ */
+@Path("departamentos")
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
+public class DepartamentoRest {
+    
+ 
+    @EJB
+    private DepartamentoFacade departamentoEJB;
+    
+    
+    @GET
+    public List<Departamento> findAll(){
+        return departamentoEJB.findAll();
+    }
+    
+    
+    @GET
+    @Path("{id}")
+    public Departamento findById(@PathParam("id") Integer id){
+        return departamentoEJB.find(id);
+    }
+    
+   
+    @POST
+    public void create(Departamento departamento){
+        departamentoEJB.create(departamento);
+    }
+    
+    @PUT
+    @Path("{id}")
+    public void edit(@PathParam("id") Integer id, Departamento departamento){
+        departamentoEJB.edit(departamento);
+    }
+}
